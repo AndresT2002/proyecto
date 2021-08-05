@@ -1,0 +1,21 @@
+.padre{
+    display: inline-flex;
+    
+    
+}
+
+@media (max-width: 1024px) {
+    .padre {
+        flex-wrap: wrap;
+    }
+    .navbar{
+        width:100vh;
+    }
+    .card-body{
+        width:100vh;
+    }
+    .col-md-5 {
+        width:20px;
+    }
+}
+
