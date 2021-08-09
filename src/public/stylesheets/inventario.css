@@ -19,3 +19,16 @@
     }
 }
 
+.opciones{
+    display: flex;
+    justify-content:space-evenly;
+    align-items: center;
+    margin-top: 10%;
+}
+.opciones img{
+    width: 240px;
+    border-radius: 100%;
+    border-style: solid;
+    border-color: rgb(224, 236, 236);
+}
+

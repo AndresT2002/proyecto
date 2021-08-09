@@ -21,10 +21,10 @@
  
   
 <script >
-  var productos=[];
   var total=0;
   
   function add(product,price,type){
+    var productos=JSON.parse(localStorage.getItem('carrito')) || [];
     var producto={
       id:product,
       precio:price,
@@ -36,12 +36,56 @@
       total=total +price ;
       console.log(productos)
     document.getElementById("checkout").innerHTML= `Pagar $${total}`
+
+    localStorage.setItem('carrito',JSON.stringify(productos))
+   
+   
+    console.log(productos)
+   
     
-    
+    productos.map((producto)=>{
+      console.log(producto.id);
+      console.log(producto.precio)
+      console.log(producto.tipo)
+      
+    })
+   
+   
+   
   }
- 
-  module.exports=productos;
+  function clearCarrito(){
+    localStorage.removeItem('carrito')
+  }
+  
 </script>
+
+
+
+<div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class=" btn-warning btn-lg btn-close " data-dismiss="modal"data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <script>
+      Pene
+      </script>
+        
+        
+          
+          
+          
+          
+      </div>
+      <div class="modal-footer">
+        <button type="button" onclick="clearCarrito()" class=" btn-warning" >Pagar</button>
+        <button type="button" class="btn btn-info">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
     <% if (login ==false){%>
         <a href="/registro"> <div id="chat">Autenticarse/Registro</div></a>
@@ -90,7 +134,7 @@
     <h1>FORMULA TU SHAMPOO</h1>
 
     
-    <div class="accordion" id="lista-producto">
+    <div class="accordion " id="lista-producto">
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingOne">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -184,40 +228,15 @@
 
 
   
-      <button type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal">
-        <i class="fas fa-shopping-cart"></i>
-      </button>
       
       
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-              <button type="button" class="btn-warning" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <script>
-                productos.forEach(function(element){
-                  <ul class="list-group list-group-flush">
-                  <li class="list-group-item">element.nombre_producto</li>
-                </ul>
-                })
-                
-                </script>
-               
-                
-            </div>
-            <div class="modal-footer">
-              <button type="button" class=" btn-warning" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-info">Save changes</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      
+      
 
 
 
+      
+    <i type="button" class="fas fa-shopping-cart"data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
 
       
 
@@ -240,4 +259,6 @@
     <div class="derechos"> &copy; 2021 Shara, reservados todos los derechos. </div>
     </footer>
     
+
+ 
 </html>

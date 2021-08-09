@@ -152,6 +152,68 @@ module.exports=app =>{
         
         
     })
+    app.get('/inventario_presentaciones',(req,res)=>{
+        if(req.session.rol==="administrador" || req.session.rol==="vendedor"){
+            
+                connection.query('SELECT *FROM presentaciones',(err,results)=>{
+                    res.render("../views/inventario_presentaciones.ejs",{
+                        results:results,
+                        login:true,
+                        name:req.session.username,
+                        rol:req.session.rol
+                    })
+                 })
+             
+        }else{
+            res.redirect("/")
+        }
+        
+        
+    })
+
+    app.get('/inventario_esencias',(req,res)=>{
+        if(req.session.rol==="administrador" || req.session.rol==="vendedor"){
+            
+                
+                
+                connection.query('SELECT *FROM esencias',(err,resultados)=>{
+                    console.log(resultados)
+                    res.render("../views/inventario_esencias.ejs",{
+                        
+                        esencias:resultados,
+                        
+                        login:true,
+                       name:req.session.username,
+                       rol:req.session.rol
+                    })
+                 })
+             
+            
+        }else{
+            res.redirect("/")
+        }
+        
+        
+    })
+    app.get('/inventario_aceites',(req,res)=>{
+        if(req.session.rol==="administrador" || req.session.rol==="vendedor"){
+            connection.query('SELECT *FROM productos',(err,result)=>{
+                    res.render("../views/inventario_aceites.ejs",{
+                        inventario:result,
+                        
+                        login:true,
+                       name:req.session.username,
+                       rol:req.session.rol
+                    })
+                 
+            }) 
+        }else{
+            res.redirect("/")
+        }
+        
+        
+    })
+    
 
     app.get("/delete/:codigo_producto", (req,res) => {
         if(req.session.rol==="administrador" || req.session.rol==="vendedor"){
@@ -161,26 +223,23 @@ module.exports=app =>{
                 if(err){
                     res.send(err);
                 } else {
-                    connection.query("SELECT * FROM presentaciones", (err, results) => {
-                    connection.query("SELECT * FROM productos", (err, result) => {
-                        connection.query('SELECT *FROM esencias',(err,resultados)=>{
+                    connection.query("SELECT * FROM productos", (err, results) => {
+                   
                         if(err){
                             res.send(err);
                         } else {
-                            res.render("../views/inventario.ejs", {
-                                inventario: result,
-                                esencias:resultados,
-                                results:results,
+                            res.render("../views/inventario_aceites.ejs", {
+                                inventario: results,
+                                
                                 alert:true,
                                 login:true,
                                 rol:req.session.rol,
-                                ruta: "inventario"
+                                ruta: "inventario_aceites"
                                 
                             });
                         }
                     })
-                })
-                })
+                
                 }
             })
         }else{
@@ -197,24 +256,19 @@ module.exports=app =>{
                     res.send(err);
                 } else {
                     connection.query("SELECT * FROM presentaciones", (err, results) => {
-                    connection.query("SELECT * FROM productos", (err, result) => {
-                        connection.query('SELECT *FROM esencias',(err,resultados)=>{
+                    
                         if(err){
                             res.send(err);
                         } else {
-                            res.render("../views/inventario.ejs", {
-                                inventario: result,
-                                esencias:resultados,
+                            res.render("../views/inventario_presentaciones.ejs", {
                                 results:results,
                                 alert:true,
                                 login:true,
                                 rol:req.session.rol,
-                                ruta: "inventario"
+                                ruta: "inventario_presentaciones"
                                 
                             });
                         }
-                    })
-                })
             })
                 }
             })
@@ -232,23 +286,23 @@ module.exports=app =>{
                 if(err){
                     res.send(err);
                 } else {
-                    connection.query("SELECT * FROM productos", (err, result) => {
+                    
                         connection.query('SELECT *FROM esencias',(err,resultados)=>{
                         if(err){
                             res.send(err);
                         } else {
-                            res.render("../views/inventario.ejs", {
-                                inventario: result,
+                            res.render("../views/inventario_esencias.ejs", {
+                                
                                 esencias:resultados,
                                 alert:true,
                                 login:true,
                                 rol:req.session.rol,
-                                ruta: "inventario"
+                                ruta: "inventario_esencias"
                                 
                             });
                         }
                     })
-                })
+                
                 }
             })
         }else{
@@ -268,7 +322,7 @@ module.exports=app =>{
                 if(err){
                     res.send(err);
                 } else {
-                    res.redirect("/inventario");
+                    res.redirect("/inventario_aceites");
                 }
             })
         }else{
@@ -287,7 +341,7 @@ module.exports=app =>{
                 if(err){
                     res.send(err);
                 } else {
-                    res.redirect("/inventario");
+                    res.redirect("/inventario_esencias");
                 }
             })
         }else{
@@ -306,7 +360,7 @@ module.exports=app =>{
                 if(err){
                     res.send(err);
                 } else {
-                    res.redirect("/inventario");
+                    res.redirect("/inventario_presentaciones");
                 }
             })
         }else{
@@ -329,7 +383,7 @@ module.exports=app =>{
                 if(error){
                     res.send(error);
                 } else {
-                    res.redirect("/inventario")
+                    res.redirect("/inventario_aceites")
                 }
             })
         }else{
@@ -349,7 +403,7 @@ module.exports=app =>{
                 if(error){
                     res.send(error);
                 } else {
-                    res.redirect("/inventario")
+                    res.redirect("/inventario_esencias")
                 }
             })
         }else{
@@ -368,7 +422,7 @@ module.exports=app =>{
                 if(error){
                     res.send(error);
                 } else {
-                    res.redirect("/inventario")
+                    res.redirect("/inventario_presentaciones")
                 }
             })
         }else{
