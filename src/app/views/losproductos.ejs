@@ -107,7 +107,7 @@
     var productos2=JSON.parse(localStorage.getItem('carrito')) || [];
 
     var carrito_final=productos2.filter((item)=>{
-     return  item.id != id && item.name != name 
+     return  item.id != id && item.name !== name 
     })
     localStorage.setItem('carrito', JSON.stringify(carrito_final));
   }
@@ -141,15 +141,6 @@
             <div class="form-group">
                 <input type="text" autocomplete="off" name="direccion" class="form-control" placeholder="Escriba la direccion de entrega:">
             </div>
-
-            <div class="form-group">
-                <input type="text" autocomplete="off" name="nombre_recibe" class="form-control" placeholder="Nombre quien recibe:">
-            </div>
-            
-            <div class="form-group">
-              <input type="text" autocomplete="off" name="numero_tel" class="form-control" placeholder="Numero de contacto">
-          </div>
-
           <h3 class="card-title"style="text-align:center">Seleccione tipo de entrega</h3>
           <div class="tipos"style="text-align:center">
                 <select name="rol" id="rol" class="select-css">
