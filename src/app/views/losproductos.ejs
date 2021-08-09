@@ -11,10 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/1772257877.js" crossorigin="anonymous"></script>
     <script src="../../../src/index.js"></script>
-    
-    
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 
   </head>
 <body>
@@ -112,7 +109,14 @@
     localStorage.setItem('carrito', JSON.stringify(carrito_final));
   }
 
+function consultar(){
+  let productos3=JSON.parse(localStorage.getItem('carrito'))
 
+  let datos = document.getElementById('datos')
+
+  datos.value=JSON.stringify(productos3)
+  
+}
   function tablita(){
     let table=""
     let enviar_info=""
@@ -143,14 +147,16 @@
             </div>
           <h3 class="card-title"style="text-align:center">Seleccione tipo de entrega</h3>
           <div class="tipos"style="text-align:center">
-                <select name="rol" id="rol" class="select-css">
+                <select name="tipo_entrega" id="tipo_entrega" class="select-css">
                     <option value="admin" selected> A domicilio</option>
                     <option value="cliente" selected>Recoger en tienda</option>
                     
                 </select>
-            </div>
+                 </div>
+                <input type="submit" onclick="consultar()" class="btn-warning">
+                 <input type="text" id="datos" name="datos" style="display:none">
+                </form>`
 
-            <input type="submit" class="btn-warning">`
 
   document.getElementById("enviar_carrito").innerHTML =enviar_info
   }

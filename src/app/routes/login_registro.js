@@ -413,6 +413,23 @@ module.exports=app =>{
         }
         
     })
+    
+      
+    app.post("/generar_orden", (req,res) => {
+        if(req.session.rol==="cliente" ){
+            
+            const {tipo_entrega,datos} = req.body;
+            console.log(req.body)
+            let datos_finales=JSON.parse(datos)
+            console.log(datos_finales)
+            
+        }else{
+            res.redirect("/")
+        }
+        
+    })
+
+
     app.post("/presentaciones", (req,res) => {
         if(req.session.rol==="administrador" || req.session.rol==="vendedor"){
             const {tipo_presentacion,precio_presentacion} = req.body;
