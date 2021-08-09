@@ -769,7 +769,7 @@ app.post('/auth',async (req,res)=>{
                     alertIcon:"success",
                     showConfirmButton:false,
                     timer:1500,
-                    ruta:'productos'
+                    ruta:'losproductos'
                 });
                 }
             }
