@@ -556,8 +556,9 @@ module.exports=app =>{
         
         console.log(req.body);
         
-        const {username,pass,nombres,apellidos,telefono,email}=req.body;
+        const {username,pass,nombres,apellidos,telefono,email,verificar_pass}=req.body;
         console.log(username);
+        
         let passwordHaash = await bcryptjs.hash(pass,8);
         connection.query("INSERT INTO cliente SET ?",{
             username: username,
@@ -567,7 +568,7 @@ module.exports=app =>{
             telefono:telefono,
             email:email,
         }, async(error,results)=>{
-            if (error){
+            if (error ){
                 res.render("../views/registro.ejs",{
                     alert: false,
                     alertTitle: "Error",
@@ -578,6 +579,7 @@ module.exports=app =>{
                     ruta:"./registro"
                    })
             }else{
+                if(pass===verificar_pass){
                 res.render("../views/registro.ejs",{
                     alert: true,
                     alertTitle: "Registro Exitoso",
@@ -587,6 +589,18 @@ module.exports=app =>{
                     timer: 1500,
                     ruta:"./formulario"
                    })
+            }else{
+                res.render("../views/registro.ejs",{
+                    alert: false,
+                    alertTitle: "Error",
+                    alertMessage: "Error",
+                    alertIcon: "error",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    ruta:"./registro"
+                   })
+            }
+                
                 
             }
         })

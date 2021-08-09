@@ -15,7 +15,7 @@
 </header>
 <body background="/resources/images/fondoform.jpg">
     <section class="form-register" method="POST">
-        <form action="registro" method="POST">
+        <form action="registro" name="registro" method="POST">
             <h2>Formulario de registro</h2>
             <input class="controls"  autocomplete="off" type="text" name="username" id="username" placeholder="Ingrese su nombre de usuario" required>
             <input class="controls" autocomplete="off" type="password" name="pass" id="contrasena" placeholder="Ingrese su contraseña" required>
@@ -25,12 +25,12 @@
             <input class="controls" autocomplete="off" type="number" name="telefono" id="telefono" placeholder="Escriba su telefono" required>
             <input class="controls" autocomplete="off" type="email" name="email" id="correo" placeholder="Ingrese su correo" required>
             <p> Estoy de acuerdo con  <a href="/politicas"> Terminos y condiciones </a></p>
-            <input class="botons" type="submit" value="Registrar">
+            <input class="botons" onclick="verificador()" type="submit" value="Registrar">
             <p><a href="/formulario"> ¿Ya tengo cuenta? </a></p>
         </form>
         
     </section>
-
+    
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <% if(typeof alert !="undefined"){ %>
@@ -42,7 +42,7 @@
                 showConfirmButton: "<%=showConfirmButton%>",
                 timer: "<%= timer %>"
             }).then(() => {
-                window.location ="/<%=ruta%>"
+                window.location ='/<%=ruta%>'
             })
         </script>
     <% } %>
