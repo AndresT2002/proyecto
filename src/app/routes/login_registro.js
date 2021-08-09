@@ -373,6 +373,8 @@ module.exports=app =>{
 
     app.post("/inventario", (req,res) => {
         if(req.session.rol==="administrador" || req.session.rol==="vendedor"){
+            let productos2=JSON.parse(localStorage.getItem('carrito')) || [];
+            console.log(productos2)
             const {nombre,cantidad,precio,descripcion} = req.body;
             connection.query("INSERT INTO productos SET ?", {
                 nombre_producto: nombre,
@@ -542,6 +544,7 @@ module.exports=app =>{
     });
 
     app.get('/logout',(req,res)=>{
+        
         req.session.destroy(()=>{
             res.redirect("/")
         })

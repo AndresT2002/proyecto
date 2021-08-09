@@ -18,6 +18,11 @@
   <% } else { %>
     
     <% } %> 
+    <script>
+      function clearCarrito(){
+    localStorage.removeItem('carrito')
+  }
+    </script>
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
@@ -41,7 +46,7 @@
                               <% } %>  
       
                         <li class="nav-item"><a class="nav-link active" href="#"><%=name%></a></li>
-                        <li class="nav-item"><a href="logout" class="nav-link">Logout</a></li>
+                        <li class="nav-item"><a href="logout" onclick="clearCarrito()" class="nav-link">Logout</a></li>
       
                       <% } else { %>
                         <li class="nav-item"><a class="nav-link" href="#"><%=name%></a></li>

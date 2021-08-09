@@ -67,7 +67,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Carrito de compras</h5>
         <button type="button" class=" btn-warning btn-lg btn-close " data-dismiss="modal"data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -86,6 +86,7 @@
             
           </tbody>
         </table>
+        <div id="enviar_carrito"></div>
         
         
           
@@ -114,6 +115,7 @@
 
   function tablita(){
     let table=""
+    let enviar_info=""
   let productos2=JSON.parse(localStorage.getItem('carrito')) || [];
     for(let i=0;i<productos2.length;i++) {
   
@@ -130,6 +132,36 @@
     
   }
   document.getElementById("todo").innerHTML =table
+
+  enviar_info+=`<div  class="col-md-5 mt-4 card" style="width:100%">
+        <form action="generar_orden" method="POST" class="card-body">
+            <h3 class="card-title"style="text-align:center">Datos de entrega</h3>
+            <h6 class="card-title"style="text-align:center">Por favor especifique si es casa o apartamento con su respectivo numero y el barrio donde está ubicado.
+              En caso de seleccionar metodo de recoger en tienda dejar este campo vacio. </h6>
+            <div class="form-group">
+                <input type="text" autocomplete="off" name="direccion" class="form-control" placeholder="Escriba la direccion de entrega:">
+            </div>
+
+            <div class="form-group">
+                <input type="text" autocomplete="off" name="nombre_recibe" class="form-control" placeholder="Nombre quien recibe:">
+            </div>
+            
+            <div class="form-group">
+              <input type="text" autocomplete="off" name="numero_tel" class="form-control" placeholder="Numero de contacto">
+          </div>
+
+          <h3 class="card-title"style="text-align:center">Seleccione tipo de entrega</h3>
+          <div class="tipos"style="text-align:center">
+                <select name="rol" id="rol" class="select-css">
+                    <option value="admin" selected> A domicilio</option>
+                    <option value="cliente" selected>Recoger en tienda</option>
+                    
+                </select>
+            </div>
+
+            <input type="submit" class="btn-warning">`
+
+  document.getElementById("enviar_carrito").innerHTML =enviar_info
   }
   
 </script>
@@ -164,7 +196,7 @@
                                   <% } %>  
           
                             <li class="nav-item"><a class="nav-link active" href="#"><%=name%></a></li>
-                            <li class="nav-item"><a href="logout" class="nav-link">Logout</a></li>
+                            <li class="nav-item"><a href="logout" onclick="clearCarrito()"class="nav-link">Logout</a></li>
           
                           <% } else { %>
                             <li class="nav-item"><a class="nav-link" href="#"><%=name%></a></li>
