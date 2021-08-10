@@ -428,16 +428,7 @@ module.exports=app =>{
             connection.query("INSERT INTO detalle_facturas SET ?", {
                 id_clientes:id
             })
-            connection.query('SELECT MAX(id_facturas) AS id FROM detalle_facturas',async(error,resultaados) =>{
-                if(error){
-                throw error;
-                   
-                } else{
-                    id_ultimo_array=resultaados[0]
-                    console.log(id_ultimo_array.id)
-                    el_id=parseInt(id_ultimo_array.id)
-                    }
-                })
+            
                 
             
 
@@ -453,24 +444,58 @@ module.exports=app =>{
                 total +=datos_finales[i].precio
                 if(datos_finales[i].tipo==="Aceite Esencial"){
                     let id_producto=parseInt(datos_finales[i].id)
-                    connection.query("UPDATE detalle_facturas SET id_producto = ? WHERE id_facturas = ?", [id_producto, el_id], (err, result) => {
+
+                    connection.query('SELECT MAX(id_facturas) AS id FROM detalle_facturas',async(error,resultaados) =>{
+                        if(error){
+                        throw error;
+                           
+                        } else{
+                            id_ultimo_array=resultaados[0]
+                            console.log(id_ultimo_array.id)
+                            el_id=parseInt(id_ultimo_array.id)
+                            connection.query("UPDATE detalle_facturas SET id_producto = ? WHERE id_facturas = ?", [id_producto, el_id], (err, result) => {
                         
-                    })
+                            })
+                            }
+                        })
+                   
                     
                 }
                 
                 if(datos_finales[i].tipo==="esencia"){
                     let id_esencia=parseInt(datos_finales[i].id)
-                    connection.query("UPDATE detalle_facturas SET id_esencia = ? WHERE id_facturas = ?", [id_esencia, el_id], (err, result) => {
+                    connection.query('SELECT MAX(id_facturas) AS id FROM detalle_facturas',async(error,resultaados) =>{
+                        if(error){
+                        throw error;
+                           
+                        } else{
+                            id_ultimo_array=resultaados[0]
+                            console.log(id_ultimo_array.id)
+                            el_id=parseInt(id_ultimo_array.id)
+                            connection.query("UPDATE detalle_facturas SET id_esencia = ? WHERE id_facturas = ?", [id_esencia, el_id], (err, result) => {
                         
-                    })
+                            })
+                            }
+                        })
+                   
                 }
 
                 if(datos_finales[i].tipo==="presentaciones"){
                     let id_presentacion=parseInt(datos_finales[i].id)
-                    connection.query("UPDATE detalle_facturas SET id_presentacion = ? WHERE id_facturas = ?", [id_presentacion, el_id], (err, result) => {
+                    connection.query('SELECT MAX(id_facturas) AS id FROM detalle_facturas',async(error,resultaados) =>{
+                        if(error){
+                        throw error;
+                           
+                        } else{
+                            id_ultimo_array=resultaados[0]
+                            console.log(id_ultimo_array.id)
+                            el_id=parseInt(id_ultimo_array.id)
+                            connection.query("UPDATE detalle_facturas SET id_presentacion = ? WHERE id_facturas = ?", [id_presentacion, el_id], (err, result) => {
                         
-                    })
+                            })
+                            }
+                        })
+                    
                     
                     
                 }
