@@ -108,6 +108,11 @@ module.exports=app =>{
     })
 
     
+    app.get('/Ordenes',(req,res)=>{
+        res.render('../views/ordenes.ejs'),{
+            
+        }
+    })
 
 
     app.get('/infoclientes',(req,res)=>{
@@ -509,6 +514,7 @@ module.exports=app =>{
 
 
             }
+            res.redirect('/Ordenes')
             
         }else{
             res.redirect("/")
