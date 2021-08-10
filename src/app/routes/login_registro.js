@@ -109,8 +109,23 @@ module.exports=app =>{
 
     
     app.get('/Ordenes',(req,res)=>{
-        res.render('../views/ordenes.ejs'),{
+        if(req.session.loggedin){
+            let id=parseInt(req.session.id_element)
+            console.log(id)
+    connection.query('SELECT *FROM detalle_facturas WHERE id_clientes =?',[id],async(err,detalles_factura)=>{
+        console.log(detalles_factura)
+                    res.render("../views/ordenes.ejs",{
+                        
+                        ordenes:detalles_factura,
+                        login:true,
+                        name:req.session.username,
+                        rol:req.session.rol,
+                       
+                    })
+                })
             
+        }else{
+            res.redirect("/")
         }
     })
 
