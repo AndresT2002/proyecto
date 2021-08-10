@@ -141,19 +141,13 @@ function consultar(){
         <form action="generar_orden" method="POST" class="card-body">
             <h3 class="card-title"style="text-align:center">Datos de entrega</h3>
             <h6 class="card-title"style="text-align:center">Por favor especifique si es casa o apartamento con su respectivo numero y el barrio donde está ubicado.
-              En caso de seleccionar metodo de recoger en tienda dejar este campo vacio. </h6>
+              En caso de que desee recoger en tienda dejar este campo vacio. </h6>
             <div class="form-group">
                 <input type="text" autocomplete="off" name="direccion" class="form-control" placeholder="Escriba la direccion de entrega:">
             </div>
-          <h3 class="card-title"style="text-align:center">Seleccione tipo de entrega</h3>
-          <div class="tipos"style="text-align:center">
-                <select name="tipo_entrega" id="tipo_entrega" class="select-css">
-                    <option value="A domicilio" selected> A domicilio</option>
-                    <option value="Recoger en tienda" selected>Recoger en tienda</option>
-                    
-                </select>
-                 </div>
-                 <input type="submit" value="Pagar" onclick="consultar()" class="btn-warning"  >
+          
+              <div style="display:flex; justify-content:center;align-content:center; margin-top:4%"><input type="submit" value="Pagar" onclick="consultar()" class="btn-warning"  ></div>
+                 
                
                  <input type="text" id="datos" name="datos" style="display:none">
                 </form>`

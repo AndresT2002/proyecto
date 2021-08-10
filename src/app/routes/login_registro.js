@@ -423,7 +423,11 @@ module.exports=app =>{
 
             let id=parseInt(req.session.id_element)
             console.log(id)
-            const {tipo_entrega,datos} = req.body;
+            var {direccion,datos} = req.body;
+            if(direccion===''){
+                direccion="Recoger en tienda"
+            }
+            console.log(req.body)
             
             connection.query("INSERT INTO detalle_facturas SET ?", {
                 id_clientes:id
@@ -442,6 +446,7 @@ module.exports=app =>{
                 console.log(datos_finales[i].precio)
                 console.log((datos_finales[i].tipo))
                 total +=datos_finales[i].precio
+                console.log(total)
                 if(datos_finales[i].tipo==="Aceite Esencial"){
                     let id_producto=parseInt(datos_finales[i].id)
 
@@ -453,7 +458,7 @@ module.exports=app =>{
                             id_ultimo_array=resultaados[0]
                             console.log(id_ultimo_array.id)
                             el_id=parseInt(id_ultimo_array.id)
-                            connection.query("UPDATE detalle_facturas SET id_producto = ? WHERE id_facturas = ?", [id_producto, el_id], (err, result) => {
+                            connection.query("UPDATE detalle_facturas SET id_producto = ? ,total=?,direccion_entrega=? WHERE id_facturas = ?", [id_producto,total,direccion, el_id], (err, result) => {
                         
                             })
                             }
@@ -472,7 +477,7 @@ module.exports=app =>{
                             id_ultimo_array=resultaados[0]
                             console.log(id_ultimo_array.id)
                             el_id=parseInt(id_ultimo_array.id)
-                            connection.query("UPDATE detalle_facturas SET id_esencia = ? WHERE id_facturas = ?", [id_esencia, el_id], (err, result) => {
+                            connection.query("UPDATE detalle_facturas SET id_esencia = ? ,total=?,direccion_entrega=? WHERE id_facturas = ?", [id_esencia,total,direccion, el_id], (err, result) => {
                         
                             })
                             }
@@ -490,7 +495,7 @@ module.exports=app =>{
                             id_ultimo_array=resultaados[0]
                             console.log(id_ultimo_array.id)
                             el_id=parseInt(id_ultimo_array.id)
-                            connection.query("UPDATE detalle_facturas SET id_presentacion = ? WHERE id_facturas = ?", [id_presentacion, el_id], (err, result) => {
+                            connection.query("UPDATE detalle_facturas SET id_presentacion = ?,total=? ,direccion_entrega=?WHERE id_facturas = ?", [id_presentacion,total,direccion, el_id], (err, result) => {
                         
                             })
                             }
