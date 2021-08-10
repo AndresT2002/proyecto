@@ -417,11 +417,68 @@ module.exports=app =>{
       
     app.post("/generar_orden", (req,res) => {
         if(req.session.rol==="cliente" ){
-            
+
+            var id_ultimo_array
+            var el_id
+
+            let id=parseInt(req.session.id_element)
+            console.log(id)
             const {tipo_entrega,datos} = req.body;
-            console.log(req.body)
+            
+            connection.query("INSERT INTO detalle_facturas SET ?", {
+                id_clientes:id
+            })
+            connection.query('SELECT MAX(id_facturas) AS id FROM detalle_facturas',async(error,resultaados) =>{
+                if(error){
+                throw error;
+                   
+                } else{
+                    id_ultimo_array=resultaados[0]
+                    console.log(id_ultimo_array.id)
+                    el_id=parseInt(id_ultimo_array.id)
+                    }
+                })
+                
+            
+
+           
+
             let datos_finales=JSON.parse(datos)
+            let total=0
             console.log(datos_finales)
+            for(let i=0; i<datos_finales.length; i++) {
+                console.log(datos_finales[i].id)
+                console.log(datos_finales[i].precio)
+                console.log((datos_finales[i].tipo))
+                total +=datos_finales[i].precio
+                if(datos_finales[i].tipo==="Aceite Esencial"){
+                    let id_producto=parseInt(datos_finales[i].id)
+                    connection.query("UPDATE detalle_facturas SET id_producto = ? WHERE id_facturas = ?", [id_producto, el_id], (err, result) => {
+                        
+                    })
+                    
+                }
+                
+                if(datos_finales[i].tipo==="esencia"){
+                    let id_esencia=parseInt(datos_finales[i].id)
+                    connection.query("UPDATE detalle_facturas SET id_esencia = ? WHERE id_facturas = ?", [id_esencia, el_id], (err, result) => {
+                        
+                    })
+                }
+
+                if(datos_finales[i].tipo==="presentaciones"){
+                    let id_presentacion=parseInt(datos_finales[i].id)
+                    connection.query("UPDATE detalle_facturas SET id_presentacion = ? WHERE id_facturas = ?", [id_presentacion, el_id], (err, result) => {
+                        
+                    })
+                    
+                    
+                }
+
+                
+
+
+            }
             
         }else{
             res.redirect("/")
@@ -796,6 +853,7 @@ app.post('/auth',async (req,res)=>{
                 req.session.loggedin=true;
                 req.session.username=results[0].username
                 req.session.rol=results[0].rol;
+                req.session.id_element=results[0].id_element
                 res.render('../views/formulario.ejs',{
                     alert:true,
                     alertTitle:"Conexion Exitosa",
