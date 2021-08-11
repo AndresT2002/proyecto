@@ -112,7 +112,18 @@ module.exports=app =>{
         if(req.session.loggedin){
             let id=parseInt(req.session.id_element)
             console.log(id)
-    connection.query('SELECT *FROM detalle_facturas WHERE id_clientes =?',[id],async(err,detalles_factura)=>{
+    connection.query(`SELECT  id_facturas,nombre,apellido,nombre_producto,nombre_esencia,tipo_presentacion,direccion_entrega,total,Estado_pedido
+        FROM detalle_facturas 
+        INNER JOIN cliente
+        ON detalle_facturas.id_clientes = cliente.id_element
+        INNER JOIN productos
+        ON detalle_facturas.id_producto=productos.codigo_producto
+        INNER JOIN esencias
+        ON detalle_facturas.id_esencia=esencias.id
+        INNER JOIN presentaciones
+        ON detalle_facturas.id_presentacion=presentaciones.id
+        
+        WHERE id_clientes=?`,[id],async(err,detalles_factura)=>{
         console.log(detalles_factura)
                     res.render("../views/ordenes.ejs",{
                         
