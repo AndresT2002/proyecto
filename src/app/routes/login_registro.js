@@ -183,6 +183,34 @@ module.exports=app =>{
         
         
     })
+    app.get('/pedidos',(req,res)=>{
+        if(req.session.rol==="administrador" || req.session.rol==="vendedor"){
+            connection.query(`SELECT  id_facturas,nombre,apellido,nombre_producto,nombre_esencia,tipo_presentacion,direccion_entrega,total,Estado_pedido
+            FROM detalle_facturas 
+            INNER JOIN cliente
+            ON detalle_facturas.id_clientes = cliente.id_element
+            INNER JOIN productos
+            ON detalle_facturas.id_producto=productos.codigo_producto
+            INNER JOIN esencias
+            ON detalle_facturas.id_esencia=esencias.id
+            INNER JOIN presentaciones
+            ON detalle_facturas.id_presentacion=presentaciones.id`,async(err,detalles_factura)=>{
+            console.log(detalles_factura)
+                        res.render("../views/pedidos.ejs",{
+                            
+                            ordenes:detalles_factura,
+                            login:true,
+                            name:req.session.username,
+                            rol:req.session.rol,
+                           
+                        })
+                    })
+        }else{
+            res.redirect("/")
+        }
+        
+        
+    })
     app.get('/inventario_presentaciones',(req,res)=>{
         if(req.session.rol==="administrador" || req.session.rol==="vendedor"){
             
@@ -308,7 +336,7 @@ module.exports=app =>{
         }
         
     })
-
+    
     app.get("/deleteesencia/:id", (req,res) => {
         if(req.session.rol==="administrador" || req.session.rol==="vendedor"){
             login:true
@@ -404,8 +432,8 @@ module.exports=app =>{
 
     app.post("/inventario", (req,res) => {
         if(req.session.rol==="administrador" || req.session.rol==="vendedor"){
-            let productos2=JSON.parse(localStorage.getItem('carrito')) || [];
-            console.log(productos2)
+            
+            
             const {nombre,cantidad,precio,descripcion} = req.body;
             connection.query("INSERT INTO productos SET ?", {
                 nombre_producto: nombre,
@@ -498,7 +526,7 @@ module.exports=app =>{
                     
                 }
                 
-                if(datos_finales[i].tipo==="esencia"){
+                if(datos_finales[i].tipo==="Esencia"){
                     let id_esencia=parseInt(datos_finales[i].id)
                     connection.query('SELECT MAX(id_facturas) AS id FROM detalle_facturas',async(error,resultaados) =>{
                         if(error){
@@ -516,7 +544,7 @@ module.exports=app =>{
                    
                 }
 
-                if(datos_finales[i].tipo==="presentaciones"){
+                if(datos_finales[i].tipo==="Presentacion"){
                     let id_presentacion=parseInt(datos_finales[i].id)
                     connection.query('SELECT MAX(id_facturas) AS id FROM detalle_facturas',async(error,resultaados) =>{
                         if(error){
@@ -771,6 +799,7 @@ module.exports=app =>{
                     ruta:"./agregaradmin"
                    })
             }else{
+                
                 res.render("../views/agregaradmin.ejs",{
                     alert: true,
                     alertTitle: "Registro Exitoso",
@@ -778,7 +807,7 @@ module.exports=app =>{
                     alertIcon: "success",
                     showConfirmButton: false,
                     timer: 1500,
-                    ruta:"./agregaradmin"
+                    ruta:"./config"
                    })
                 
             }
