@@ -1,0 +1,21 @@
+
+body, html {
+    height: 100%;
+    background-repeat: no-repeat;
+    background-image: no-repeat center center fixed;
+    background-size: 100% 100%;
+}
+
+.row{
+    width: 100%;
+  }
+  .row .tablita{
+    z-index: 1  ;
+    width: 80%;
+    border-style: solid;
+    border-color: rgb(224, 164, 187);
+    box-shadow: 10px 10px 0px 0px rgb(240, 153, 150);
+    border-radius: 5px;
+    background: rgb(220,186,242);
+background: linear-gradient(90deg, rgba(220,186,242,1) 0%, rgba(250,176,176,1) 53%, rgba(250,210,154,1) 100%);
+  }
