@@ -23,6 +23,7 @@
                 <tr class="table-warning">
                     <th>ID</th>
                     <th>Nombre</th>
+                    <th>Precio</th>
                     <th>Borrar</th>
                     <th>Editar</th>
                 </tr>
@@ -30,6 +31,7 @@
                     <tr>
                         <th><%= esencias[i].id %></th>
                         <th><%= esencias[i].nombre_esencia %></th>
+                        <th><%= esencias[i].precio_esencia %></th>
                         <th><a class="btn btn-danger" href="/deleteesencia/<%= esencias[i].id %>">Borrar Entrada</a></th>
                         <th><button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#esencias<%= esencias[i].id %>" data-bs-whatever="@fat">Editar Entrada</button></th>
                     </tr>
@@ -47,6 +49,10 @@
                                   <label for="message-text" class="col-form-label">Nombre</label>
                                   <input class="form-control" id="message-text" type="text" name="nombre_esencia" value="<%= esencias[i].nombre_esencia %>" >
                                 </div>
+                                <div class="mb-3">
+                                    <label for="message-text" class="col-form-label">Precio</label>
+                                    <input class="form-control" id="message-text" type="text" name="precio_esencia" value="<%= esencias[i].precio_esencia %>" >
+                                  </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                     <input type="submit" class="btn btn-warning">
@@ -74,6 +80,7 @@
         <h3 class="card-title">Agregar esencias</h3>
         <div class="form-group " style="width: 50vh;">
             <input type="text" autocomplete="off" name="nombre_esencia" class="form-control" placeholder="Ingrese el nombre de la esencia">
+            <input type="text" autocomplete="off" name="precio_esencia" class="form-control" placeholder="Ingrese el precio de la esencia">
         </div>
         <input type="submit" class="btn btn-warning">
   

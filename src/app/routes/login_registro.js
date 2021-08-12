@@ -394,9 +394,9 @@ module.exports=app =>{
     app.post("/editesencia/:id", (req,res) => {
         if(req.session.rol==="administrador" || req.session.rol==="vendedor"){
             const id_esencia = req.params.id;
-            const { nombre_esencia} = req.body
+            const { nombre_esencia,precio_esencia} = req.body
             console.log(req.body);
-            connection.query("UPDATE esencias SET nombre_esencia = ? WHERE id = ?", [nombre_esencia, id_esencia], (err, result) => {
+            connection.query("UPDATE esencias SET nombre_esencia = ?,precio_esencia = ? WHERE id = ?", [nombre_esencia,precio_esencia,id_esencia], (err, result) => {
                 if(err){
                     res.send(err);
                 } else {
@@ -456,9 +456,10 @@ module.exports=app =>{
 
     app.post("/esencia", (req,res) => {
         if(req.session.rol==="administrador" || req.session.rol==="vendedor"){
-            const {nombre_esencia} = req.body;
+            const {nombre_esencia,precio_esencia} = req.body;
             connection.query("INSERT INTO esencias SET ?", {
                 nombre_esencia: nombre_esencia,
+                precio_esencia: precio_esencia
                 
             }, (error, results) => {
                 if(error){
