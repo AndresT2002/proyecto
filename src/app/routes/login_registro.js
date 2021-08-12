@@ -726,51 +726,54 @@ module.exports=app =>{
         const {username,pass,nombres,apellidos,telefono,email,verificar_pass}=req.body;
         console.log(username);
         
+        
         let passwordHaash = await bcryptjs.hash(pass,8);
-        connection.query("INSERT INTO cliente SET ?",{
-            username: username,
-            pass:passwordHaash,
-            nombre:nombres,
-            apellido:apellidos,
-            telefono:telefono,
-            email:email,
-        }, async(error,results)=>{
-            if (error ){
-                res.render("../views/registro.ejs",{
-                    alert: false,
-                    alertTitle: "Error",
-                    alertMessage: "Error",
-                    alertIcon: "error",
-                    showConfirmButton: false,
-                    timer: 1500,
-                    ruta:"./registro"
-                   })
-            }else{
-                if(pass===verificar_pass){
-                res.render("../views/registro.ejs",{
-                    alert: true,
-                    alertTitle: "Registro Exitoso",
-                    alertMessage: "¡Registro exitoso!",
-                    alertIcon: "success",
-                    showConfirmButton: false,
-                    timer: 1500,
-                    ruta:"./formulario"
-                   })
-            }else{
-                res.render("../views/registro.ejs",{
-                    alert: false,
-                    alertTitle: "Error",
-                    alertMessage: "Error",
-                    alertIcon: "error",
-                    showConfirmButton: false,
-                    timer: 1500,
-                    ruta:"./registro"
-                   })
-            }
-                
-                
-            }
-        })
+
+
+           if(pass===verificar_pass){
+            connection.query("INSERT INTO cliente SET ?",{
+                username: username,
+                pass:passwordHaash,
+                nombre:nombres,
+                apellido:apellidos,
+                telefono:telefono,
+                email:email,
+            }, async(error,results)=>{
+                if (error ){
+                    res.render("../views/registro.ejs",{
+                        alert: false,
+                        alertTitle: "Error",
+                        alertMessage: "Error",
+                        alertIcon: "error",
+                        showConfirmButton: false,
+                        timer: 1500,
+                        ruta:"./registro"
+                       })
+                }else{
+                    
+                    res.render("../views/registro.ejs",{
+                        alert: true,
+                        alertTitle: "Registro Exitoso",
+                        alertMessage: "¡Registro exitoso!",
+                        alertIcon: "success",
+                        showConfirmButton: false,
+                        timer: 1500,
+                        ruta:"./formulario"
+                       })
+                }
+            })
+           }else{
+            res.render("../views/registro.ejs",{
+                alert: false,
+                alertTitle: "Error",
+                alertMessage: "Error",
+                alertIcon: "error",
+                showConfirmButton: false,
+                timer: 1500,
+                ruta:"./registro"
+               })
+           }
+        
     })
 
     app.post('/agregaradmin', async (req,res)=>{
